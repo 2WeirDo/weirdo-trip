@@ -5,6 +5,7 @@
   /* 全局修改: 任何地方只要用到-van-tabbar-item-icon-size都会被修改掉 */
   /* --van-tabbar-item-icon-size: 30px !important; */
   --van-search-left-icon-color: var(--primary-color) !important; 
+  --van-primary-color: var(--primary-color);
 }
 
 body {
@@ -22,4 +23,11 @@ body {
 
 .bottom-gray-line {
   border-bottom: 1px solid var(--line-color);
+}
+
+.icon_check {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: url(../img/detail/icon_check.png) 0 0 / 100% 100%;
 }
