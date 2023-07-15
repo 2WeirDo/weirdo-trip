@@ -41,8 +41,7 @@ export default function useScroll(elRef) {
       scrollTop.value = el.scrollTop;
       scrollHeight.value = el.scrollHeight;
     }
-    if (clientHeight.value + scrollTop.value >= scrollHeight.value) {
-      console.log("滚动到底部了");
+    if (clientHeight.value + scrollTop.value >= scrollHeight.value - 1) {
       isReachBottom.value = true; // 用变量记录达到底部
     }
   }, 100);
