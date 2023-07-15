@@ -61,6 +61,7 @@ const showTabControl = computed(() => {
 })
 const sectionEls = []
 const getSectionRef = (value) => {
+    if(!value)return
     sectionEls.push(value.$el)
 }
 const tabClick = (index) => {
@@ -105,7 +106,7 @@ const tabClick = (index) => {
 <style lang="less" scoped>
 .tabs {
     position: fixed;
-    z-index: 9;
+    z-index: 10;
     left: 0;
     right: 0;
     top: 0;
