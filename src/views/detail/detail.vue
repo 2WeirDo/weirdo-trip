@@ -1,7 +1,7 @@
 <template>
     <div class="detail top-page" ref="detailRef">
         <tab-control v-if="showTabControl" class="tabs" :titles="['描述', '设施', '房东', '评论', '须知', '地图']"
-            @tabItemClick="tabClick" />
+            @tabItemClick="tabClick" ref="tabControlRef" />
         <van-nav-bar title="旅途" left-text="返回" left-arrow @click-left="onClickLeft" />
         <div class="main" v-if="mainPart" v-memo="[mainPart]">
             <!-- 只有mainPart发生改变才更新 -->
@@ -24,7 +24,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { getDetailInfos } from "@/service";
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import DetailSwipe from './cpns/detail_01-swipe.vue'
 import DetailInfos from './cpns/detail_02-infos.vue'
 import DetailFacility from "./cpns/detail_03-facility.vue"
@@ -61,16 +61,23 @@ const showTabControl = computed(() => {
 })
 const sectionEls = []
 const getSectionRef = (value) => {
-    if(!value)return
+    if (!value) return
     sectionEls.push(value.$el)
 }
+
+
+let isClick = false
+let currentDistance = -1
+
 const tabClick = (index) => {
-    let instance = sectionEls[index].offsetTop
+    let distance = sectionEls[index].offsetTop
     if (index !== 0) {
-        instance = instance - 44
+        distance = distance - 44
     }
+    isClick = true
+    currentDistance = distance
     detailRef.value.scrollTo({
-        top: instance,
+        top: distance,
         behavior: "smooth"
     })
 }
@@ -99,6 +106,32 @@ const tabClick = (index) => {
 //     })
 // }
 
+
+
+// 页面滚动, 滚动时匹配对应的tabControll的index
+const tabControlRef = ref()
+watch(scrollTop, (newValue) => {
+    if(newValue - currentDistance < 5){
+        isClick = false;
+    }
+    if (isClick) return;
+    // 1.获取所有的区域的offsetTops
+    const values = sectionEls.map(el => el.offsetTop)
+
+    // 2.根据newValue去匹配想要索引
+    let index = values.length - 1
+    for (let i = 1; i < values.length; i++) {
+        if (values[i] > newValue + 44) {  // 这里要加上本身tab-control的高度, 使用体验更好
+            index = i - 1
+            break
+        }
+    }
+    // console.log(index)
+    if (index != tabControlRef.value?.currentIndex) { // 减少请求次数
+        tabControlRef.value?.setCurrentIndex(index)
+    }
+
+})
 
 </script>
 
