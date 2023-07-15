@@ -71,6 +71,7 @@ let currentDistance = -1
 
 const tabClick = (index) => {
     let distance = sectionEls[index].offsetTop
+    // console.log(distance);
     if (index !== 0) {
         distance = distance - 44
     }
@@ -108,10 +109,11 @@ const tabClick = (index) => {
 
 
 
-// 页面滚动, 滚动时匹配对应的tabControll的index
+// 页面滚动, 滚动时匹配对应的tabControl的index
 const tabControlRef = ref()
 watch(scrollTop, (newValue) => {
-    if(newValue - currentDistance < 5){
+    // console.log(`new :${parseInt(newValue)} , dis : ${parseInt(currentDistance)}`);
+    if( parseInt( newValue )== parseInt(currentDistance)){
         isClick = false;
     }
     if (isClick) return;
@@ -124,7 +126,7 @@ watch(scrollTop, (newValue) => {
         if (values[i] > newValue + 44) {  // 这里要加上本身tab-control的高度, 使用体验更好
             index = i - 1
             break
-        }
+        }   
     }
     // console.log(index)
     if (index != tabControlRef.value?.currentIndex) { // 减少请求次数

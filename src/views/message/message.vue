@@ -1,5 +1,5 @@
 <template>
-    <div class="massage">
+    <div class="massage top-page">
         <h2>massage</h2>
     </div>
 </template>
