@@ -40,9 +40,10 @@ defineProps({
   width: 50%;
 
   .item-inner {
+    box-shadow: 1px 1px 10px black, -1px 1px 10px white;
     margin: 5px;
     background: #fff;
-    border-radius: 6px;
+    border-radius: 13px;
     overflow: hidden;
 
     .cover {
@@ -55,6 +56,9 @@ defineProps({
       padding: 8px 10px;
       color: #666;
       font-size: 12px;
+      font-weight: 700;
+      background-color: #d0d0d0;
+      
     }
 
     .location {

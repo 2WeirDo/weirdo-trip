@@ -1,6 +1,11 @@
 <!-- 主页面滚动时出现的搜索栏 -->
 <template>
   <div class="search">
+    <div v-if="title" class="left">
+      <slot name="left">
+        <span>{{ title }}</span>
+      </slot>
+    </div>
     <div class="select-time">
       <div class="item start">
         <div class="name">住</div>
@@ -30,18 +35,51 @@ const mainStore = useMainStore()
 const { startDate, endDate } = storeToRefs(mainStore)
 const startDateStr = computed(() => formatMonthDay(startDate.value, "MM.DD"))
 const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"))
+const props = defineProps({
+  title: {
+    type: String,
+    default: "",
+  },
+  startDate: {
+    type: String,
+    default: "00.00",
+  },
+  endDate: {
+    type: String,
+    default: "00.00",
+  },
+  height: {
+    type: String,
+    default: "35px", // 35px  45px
+  },
+  keyWord: {
+    type: String,
+    default: "关键字/位置/名宿名",
+  },
+  keyWordFontSize: {
+    type: String,
+    default: "12px",
+  },
+  searchIcon: {
+    type: Boolean,
+    default: false,
+  },
+  cancelIcon: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 </script>
 
 <style lang="less" scoped>
-
 .search {
+  transform: translateX(-6px);
   display: flex;
   flex-direction: row;
   align-items: center;
-
   height: 45px;
-  line-height:45px;
+  line-height: 45px;
 
   padding: 0 10px;
   font-size: 14px;
@@ -52,7 +90,6 @@ const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"))
 
   .left {
     // max-width: 80px;
-
     font-weight: 500;
     min-width: 30px;
     font-size: 14px;
@@ -73,6 +110,7 @@ const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"))
       align-items: center;
       line-height: normal;
       font-size: 10px;
+
       .name {
         font-size: 10px;
       }
@@ -142,5 +180,4 @@ const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"))
     background-size: 207px 192px;
   }
 }
-
 </style>

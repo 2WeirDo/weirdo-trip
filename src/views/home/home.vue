@@ -85,6 +85,8 @@ onActivated(() => {
 .banner {
     img {
         width: 100%;
+        border-radius: 30px;
+        box-shadow: 2px 2px 8px black;
     }
 }
 

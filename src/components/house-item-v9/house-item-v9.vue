@@ -38,23 +38,28 @@ const itemScore = computed(() => {
   width: 50%;
 
   .item-inner {
+    box-shadow: 1px 1px 10px black, -1px 1px 10px white;
+    border-radius: 13px;
     position: relative;
     margin: 5px;
     background: #fff;
-    border-radius: 6px;
     overflow: hidden;
 
     .cover {
       img {
         width: 100%;
+        
       }
     }
 
     .info {
+      background-color: rgb(129, 128, 128);
+      opacity: .8;
       position: absolute;
       bottom: 0;
       padding: 8px 10px;
       color: #fff;
+      font-weight: 700;
 
       .summary {
         font-size: 12px;
